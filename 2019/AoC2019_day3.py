@@ -67,7 +67,6 @@ def star_two(wire1, wire2):
     return shortest
         
 
-
 def Day_3():
     print("\n Day 3 solutions: \n")
     wire1, wire2 = read_input()
@@ -76,6 +75,9 @@ def Day_3():
     print('\n------------------')
 
     return
+
+
+
 
 
 if __name__ == '__main__':
