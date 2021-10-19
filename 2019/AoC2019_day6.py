@@ -1,14 +1,12 @@
 
 def read_input():
 
-    moons = []
     orbits = {}
 
-    # we want to retain a list of all the bodies in the problem (moons)
-    # as well as map which bodies orbit which (orbits)
+    # if the planet has been seen before, append to its list of moons, 
+    # otherwise create a new entry in the dict
     with open('Data/AoC2019_6.txt') as f:
         for line in f.readlines():
-            #moons.append(line.strip().split(')')[1])
             if line.split(')')[0] in orbits.keys():
                 orbits[line.split(')')[0]].append(line.strip().split(')')[1])
             else:    
@@ -41,7 +39,8 @@ def star_one(orbits):
 
 
 def trace_lineage(moon, orbits):
-
+    # returns path from moon to COM
+    
     position = moon
     lineage = [moon]
     while position != 'COM':
@@ -56,10 +55,12 @@ def star_two(orbits):
     lineage_you = trace_lineage('YOU', orbits)
     lineage_santa = trace_lineage('SAN', orbits)
 
+    # as long as the two paths have their last two moons in common, trim the list.
     while lineage_you[-2] == lineage_santa[-2]:
         lineage_you = lineage_you[:-1]
         lineage_santa = lineage_santa[:-1]
 
+    # len -2 to not count 'YOU' and 'SAN' themselves, and to not double count the path intersections.
     distance = len(lineage_you)-2 + len(lineage_santa)-2
     
     return distance
